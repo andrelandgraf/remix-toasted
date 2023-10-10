@@ -1,0 +1,25 @@
+{
+  "name": "remix-toasted",
+  "version": "0.0.1",
+  "description": "A cool utility package for toast messages in Remix!",
+  "main": "index.js",
+  "scripts": {
+    "format": "./scripts/format.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrelandgraf/remix-toasted.git"
+  },
+  "keywords": [
+    "toast",
+    "remix.run",
+    "remix",
+    "cookies"
+  ],
+  "author": "All Things Web, Andre (@andrelandgraf), Sing (@eiffelwong1), Tony (@tonydangblog), Terry, Cesar, Jonathan, Lizzy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andrelandgraf/remix-toasted/issues"
+  },
+  "homepage": "https://github.com/andrelandgraf/remix-toasted#readme"
+}
