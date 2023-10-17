@@ -3,14 +3,12 @@ type Todo = {
   message: string;
 };
 
-const todos: Todo[] = [];
-
-console.log('test');
+let todos: Todo[] = [];
 
 export const db = {
   todos: {
     create(message: string) {
-      const id = todos.length;
+      const id = Math.round(1000 * Math.random());
       todos.push({ id, message });
       return id;
     },
@@ -21,7 +19,7 @@ export const db = {
       todos[id].message = message;
     },
     delete(id: number) {
-      todos.splice(id, 1);
+      todos = todos.filter((todo) => todo.id !== id);
     },
     readAll() {
       return todos;

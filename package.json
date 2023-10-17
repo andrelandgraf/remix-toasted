@@ -2,6 +2,7 @@
   "name": "remix-toasted",
   "version": "0.0.1",
   "description": "A cool utility package for toast messages in Remix!",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "format": "./scripts/format.sh"

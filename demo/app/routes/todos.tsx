@@ -1,4 +1,4 @@
-import type { ActionFunctionArgs } from '@remix-run/node';
+import { type ActionFunctionArgs, json } from '@remix-run/node';
 import { Form, useLoaderData, useNavigation } from '@remix-run/react';
 import { useEffect, useRef } from 'react';
 
@@ -11,8 +11,11 @@ const intents = {
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const intent = formData.get('intent');
+
+  // Delete
   if (typeof intent === 'string' && intent === intents.delete) {
     const id = formData.get('id');
+    console.log('id', id);
     if (!id || typeof id !== 'string') {
       throw new Response('Bad Request', { status: 400 });
     }
@@ -21,13 +24,30 @@ export async function action({ request }: ActionFunctionArgs) {
       throw new Response('Bad Request', { status: 400 });
     }
     db.todos.delete(idNumber);
-    return { error: false };
+    return json(
+      { success: true },
+      {
+        headers: {
+          'Set-Cookie': 'toast=Todo deleted; Path=/; SameSite=Strict; Max-Age=5000',
+        },
+      },
+    );
   }
+
+  // Create
   const todo = formData.get('new_todo');
   if (!todo || typeof todo !== 'string') {
     throw new Response('Bad Request', { status: 400 });
   }
-  return db.todos.create(todo);
+  db.todos.create(todo);
+  return json(
+    { success: true },
+    {
+      headers: {
+        'Set-Cookie': 'toast=Todo created; Path=/; SameSite=Strict; Max-Age=5000',
+      },
+    },
+  );
 }
 
 export function loader() {
@@ -45,28 +65,31 @@ export default function Component() {
     }
   }, [navigation.state]);
 
+  console.log('data', data);
   return (
-    <div>
-      <h1>TODOs</h1>
-      <ul>
-        {data.todos.map((todo) => {
-          return (
-            <li key={todo.id}>
-              {todo.message}
-              <Form method="POST">
-                <input type="hidden" name="id" value={todo.id} />
-                <button name="intent" value={intents.delete}>
-                  Delete
-                </button>
-              </Form>
-            </li>
-          );
-        })}
-      </ul>
-      <Form ref={ref} method="post">
-        <input type="text" name="new_todo" />
-        <button type="submit">Add</button>
-      </Form>
-    </div>
+    <>
+      <div>
+        <h1>TODOs</h1>
+        <ul>
+          {data.todos.map((todo) => {
+            return (
+              <li key={todo.id}>
+                {todo.message}
+                <Form method="POST">
+                  <input type="hidden" name="id" value={todo.id} />
+                  <button name="intent" value={intents.delete}>
+                    Delete
+                  </button>
+                </Form>
+              </li>
+            );
+          })}
+        </ul>
+        <Form ref={ref} method="post">
+          <input type="text" name="new_todo" />
+          <button type="submit">Add</button>
+        </Form>
+      </div>
+    </>
   );
 }
