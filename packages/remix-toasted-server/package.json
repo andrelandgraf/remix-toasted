@@ -1,0 +1,35 @@
+{
+  "name": "remix-toasted-server",
+  "version": "0.0.2",
+  "license": "MIT",
+  "description": "The server-side code for your Remix app to create really cool toasts!",
+  "author": "All Things Web, Andre (@andrelandgraf), Sing (@eiffelwong1), Tony (@tonydangblog), Terry, Cesar, Jonathan, Lizzy",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrelandgraf/remix-toasted.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andrelandgraf/remix-toasted/issues"
+  },
+  "homepage": "https://github.com/andrelandgraf/remix-toasted#readme",
+  "keywords": [
+    "toast",
+    "remix.run",
+    "remix",
+    "cookies"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc",
+    "pre:release": "npm run build",
+    "release": "npm publish --access public"
+  },
+  "peerDependencies": {
+    "@remix-run/server-runtime": "^2.0.0"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "typescript": "^5.2.2"
+  }
+}

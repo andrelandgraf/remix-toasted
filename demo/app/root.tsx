@@ -2,28 +2,11 @@ import { json, type LoaderFunctionArgs } from '@remix-run/node';
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 
 import { Toast } from './toast';
+import { consumeToastMessage } from './utils.server';
 
-export function loader({ request }: LoaderFunctionArgs) {
-  const cookies = request.headers.get('Cookie');
-  return json(
-    {
-      toast: cookies
-        ? {
-            message: cookies
-              ? cookies
-                  .split(';')
-                  .find((c) => c.trim().startsWith('toast='))
-                  ?.split('=')[1]
-              : undefined,
-          }
-        : undefined,
-    },
-    {
-      headers: {
-        'Set-Cookie': 'toast=; Path=/; SameSite=Strict; Max-Age=0',
-      },
-    },
-  );
+export async function loader({ request }: LoaderFunctionArgs) {
+  const [toast, headers] = await consumeToastMessage(request);
+  return json({ toast }, { headers });
 }
 
 export default function App() {
@@ -40,7 +23,7 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
-        <Toast />
+        <Toast dismissible className={({ type }) => (type === 'success' ? 'bg-green-500 text-white' : 'not-success')} />
       </body>
     </html>
   );

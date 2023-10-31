@@ -1,20 +1,38 @@
 import { useLoaderData } from '@remix-run/react';
+import { useEffect, useState } from 'react';
+
+type ToastType = 'error' | 'success' | 'info' | 'warning' | string;
 
 type ToastProps = {
-  onDismiss?: () => void;
+  dismissible?: boolean;
+  fadeOut?: boolean;
+  fadeOutAfter?: number;
+  className?: string | ((params: { type: ToastType }) => string);
 };
 
 type ToastLoaderData = {
   toast?: {
     message: string;
+    type: ToastType;
   };
 };
 
-export function Toast({ onDismiss }: ToastProps) {
+export function Toast({ dismissible, className }: ToastProps) {
   const data = useLoaderData<ToastLoaderData>();
-  if (!data || !data.toast) return null;
+  const [dismissed, setDismissed] = useState(false);
+
+  useEffect(() => {
+    if (data && data.toast) {
+      setDismissed(false);
+    }
+  }, [data]);
+
+  if (!data || !data.toast || dismissed) return null;
   return (
     <div
+      className={`remix-toasted-${data.toast.type} ${
+        typeof className === 'function' ? className({ type: data.toast.type }) : className
+      }`}
       style={{
         position: 'fixed',
         bottom: '5vh',
@@ -25,11 +43,21 @@ export function Toast({ onDismiss }: ToastProps) {
       }}
     >
       {data.toast.message}
-      {onDismiss && (
-        <button aria-label="Dismiss" onClick={onDismiss}>
-          {' '}
-          X
-        </button>
+      {dismissible && (
+        <>
+          <form
+            method="GET"
+            onSubmit={(e) => {
+              e.preventDefault();
+              setDismissed(true);
+            }}
+          >
+            <button type="submit" aria-label="Dismiss">
+              {' '}
+              X
+            </button>
+          </form>
+        </>
       )}
     </div>
   );

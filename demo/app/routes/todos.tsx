@@ -1,8 +1,9 @@
-import { type ActionFunctionArgs, json } from '@remix-run/node';
-import { Form, useLoaderData, useNavigation } from '@remix-run/react';
+import { type ActionFunctionArgs } from '@remix-run/node';
+import { Form, useFetcher, useLoaderData, useNavigation } from '@remix-run/react';
 import { useEffect, useRef } from 'react';
 
 import { db } from '~/db.server';
+import { redirectWithToast } from '~/utils.server';
 
 const intents = {
   delete: 'Delete' as const,
@@ -24,14 +25,7 @@ export async function action({ request }: ActionFunctionArgs) {
       throw new Response('Bad Request', { status: 400 });
     }
     db.todos.delete(idNumber);
-    return json(
-      { success: true },
-      {
-        headers: {
-          'Set-Cookie': 'toast=Todo deleted; Path=/; SameSite=Strict; Max-Age=5000',
-        },
-      },
-    );
+    return redirectWithToast('/todos', { message: 'Todo deleted', type: 'success' });
   }
 
   // Create
@@ -40,14 +34,7 @@ export async function action({ request }: ActionFunctionArgs) {
     throw new Response('Bad Request', { status: 400 });
   }
   db.todos.create(todo);
-  return json(
-    { success: true },
-    {
-      headers: {
-        'Set-Cookie': 'toast=Todo created; Path=/; SameSite=Strict; Max-Age=5000',
-      },
-    },
-  );
+  return redirectWithToast('/todos', { message: 'Todo created', type: 'success' });
 }
 
 export function loader() {
@@ -65,24 +52,13 @@ export default function Component() {
     }
   }, [navigation.state]);
 
-  console.log('data', data);
   return (
     <>
       <div>
         <h1>TODOs</h1>
         <ul>
           {data.todos.map((todo) => {
-            return (
-              <li key={todo.id}>
-                {todo.message}
-                <Form method="POST">
-                  <input type="hidden" name="id" value={todo.id} />
-                  <button name="intent" value={intents.delete}>
-                    Delete
-                  </button>
-                </Form>
-              </li>
-            );
+            return <ToDoItem key={todo.id} todo={todo} />;
           })}
         </ul>
         <Form ref={ref} method="post">
@@ -91,5 +67,20 @@ export default function Component() {
         </Form>
       </div>
     </>
+  );
+}
+
+function ToDoItem({ todo }: { todo: { id: number; message: string } }) {
+  const fetcher = useFetcher();
+  return (
+    <li>
+      {todo.message}
+      <fetcher.Form method="POST">
+        <input type="hidden" name="id" value={todo.id} />
+        <button name="intent" value={intents.delete}>
+          Delete
+        </button>
+      </fetcher.Form>
+    </li>
   );
 }
