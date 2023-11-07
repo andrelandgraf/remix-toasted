@@ -1,6 +1,7 @@
 index.ts
 tsconfig.json
 node_modules
+vite.config.ts
 tests
 .eslintignore
 .eslintrc.cjs

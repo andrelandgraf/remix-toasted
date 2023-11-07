@@ -9,7 +9,9 @@ type CookieData<ToastType> = {
   type?: ToastType;
 };
 
-export function createToastFactory<ToastType extends string>(cookieParseOptions?: CookieParseOptions) {
+export function createToastFactory<ToastType extends string = 'success' | 'error' | 'warning' | 'info'>(
+  cookieParseOptions?: CookieParseOptions,
+) {
   const { commitSession, getSession } = createCookieSessionStorageFn({
     cookie: {
       name: 'remix-toasted',

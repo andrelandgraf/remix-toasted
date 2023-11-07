@@ -1,9 +1,33 @@
 {
-  "name": "remix-toasted",
+  "name": "remix-toasted-react",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "The React code for your Remix app to create really cool toasts!",
+  "author": "All Things Web, Andre (@andrelandgraf), Sing (@eiffelwong1), Tony (@tonydangblog), Terry, Cesar, Jonathan (@camilingjs), Lizzy",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrelandgraf/remix-toasted.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andrelandgraf/remix-toasted/issues"
+  },
+  "homepage": "https://github.com/andrelandgraf/remix-toasted#readme",
+  "keywords": [
+    "toast",
+    "remix.run",
+    "remix",
+    "cookies"
+  ],
   "scripts": {
+    "clean": "rimraf dist",
     "format:lint": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
-    "build": "tsc",
-    "test": "vitest"
+    "test": "vitest",
+    "build": "npm run clean && tsc",
+    "pre:release": "npm run build",
+    "release": "npm publish --access public"
+  },
+  "peerDependencies": {
+    "@remix-run/react": "^2.2.0"
   },
   "devDependencies": {
     "@remix-run/eslint-config": "^2.0.1",

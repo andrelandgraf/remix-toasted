@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "license": "MIT",
   "description": "The server-side code for your Remix app to create really cool toasts!",
-  "author": "All Things Web, Andre (@andrelandgraf), Sing (@eiffelwong1), Tony (@tonydangblog), Terry, Cesar, Jonathan, Lizzy",
+  "author": "All Things Web, Andre (@andrelandgraf), Sing (@eiffelwong1), Tony (@tonydangblog), Terry, Cesar, Jonathan (@camilingjs), Lizzy, Jacob (@jacobbaqleh1)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/andrelandgraf/remix-toasted.git"
@@ -21,6 +21,7 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist",
+    "format:lint": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "build": "npm run clean && tsc",
     "pre:release": "npm run build",
     "release": "npm publish --access public"

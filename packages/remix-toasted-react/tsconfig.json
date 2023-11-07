@@ -1,5 +1,5 @@
 {
-  "include": ["./toasted.server.ts", "./toasted.tsx"],
+  "include": ["./toasted.server.ts", "index.tsx"],
   "exclude": ["./demo"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],

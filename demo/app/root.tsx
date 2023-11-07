@@ -1,8 +1,12 @@
-import { json, type LoaderFunctionArgs } from '@remix-run/node';
+import type { LinksFunction, LoaderFunctionArgs } from '@remix-run/node';
+import { json } from '@remix-run/node';
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 
 import { Toast } from './toast';
+import toastCss from './toast.css';
 import { consumeToastMessage } from './utils.server';
+
+export const links: LinksFunction = () => [{ rel: 'stylesheet', href: toastCss }];
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const [toast, headers] = await consumeToastMessage(request);
@@ -23,7 +27,14 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
-        <Toast dismissible className={({ type }) => (type === 'success' ? 'bg-green-500 text-white' : 'not-success')} />
+        <Toast
+          fadeOut={true}
+          fadeOutAfter={6000}
+          dismissible
+          dismissElement="❌"
+          dismissAriaLabel="Dismiss notification"
+          className={({ type }) => (type === 'success' ? 'bg-green-500 text-white' : 'not-success')}
+        />
       </body>
     </html>
   );
