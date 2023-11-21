@@ -29,12 +29,11 @@
     "release": "npm publish --access public"
   },
   "peerDependencies": {
+    "@remix-run/react": "^2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@remix-run/react": "^2"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@remix-run/eslint-config": "^2.0.1",
     "@testing-library/jest-dom": "^6.1.3",
     "@testing-library/react": "^14.0.0",
     "@types/react": "^18.2.27",

@@ -1,15 +1,19 @@
-import type { CookieParseOptions } from '@remix-run/server-runtime';
+import type { Cookie, CookieParseOptions, CookieSerializeOptions, CookieSignatureOptions } from '@remix-run/server-runtime';
 import { createCookieFactory, createCookieSessionStorageFactory, redirect } from '@remix-run/server-runtime';
-
-const createCookieFn = createCookieFactory({ sign: async (v) => v, unsign: async (v) => v });
-const createCookieSessionStorageFn = createCookieSessionStorageFactory(createCookieFn);
 
 type CookieData<ToastType> = {
   message: string;
   type?: ToastType;
 };
 
-export function createToastFactory<ToastType extends string>(cookieParseOptions?: CookieParseOptions) {
+// copied from @remix-run/server-runtime
+type CookieOptions = Cookie | (CookieParseOptions & CookieSerializeOptions & CookieSignatureOptions & {
+  name?: string | undefined;
+}) | undefined;
+
+export function createToastFactory<ToastType extends string>(cookieParseOptions?: CookieOptions) {
+  const createCookieFn = createCookieFactory({ sign: async (v) => v, unsign: async (v) => v });
+  const createCookieSessionStorageFn = createCookieSessionStorageFactory(createCookieFn);
   const { commitSession, getSession } = createCookieSessionStorageFn({
     cookie: {
       name: 'remix-toasted',

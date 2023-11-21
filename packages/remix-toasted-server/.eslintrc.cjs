@@ -4,13 +4,8 @@ const config = require('./.prettierrc.cjs');
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
   parser: '@typescript-eslint/parser',
-  extends: [
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-    'prettier',
-  ],
-  plugins: ['@typescript-eslint', 'html', 'jsx-a11y', 'simple-import-sort', 'import'],
+  extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', 'prettier'],
+  plugins: ['@typescript-eslint', 'simple-import-sort', 'import'],
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',

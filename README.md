@@ -1,6 +1,5 @@
 # Remix TOASTED
 
-- Publish the React package
 - Write Server Tests
 - Write React Tests
 - Write E2E Tests
