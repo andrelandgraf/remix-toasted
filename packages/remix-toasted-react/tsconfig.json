@@ -1,6 +1,5 @@
 {
-  "include": ["./toasted.server.ts", "index.tsx"],
-  "exclude": ["./demo"],
+  "include": ["index.tsx"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "isolatedModules": true,
@@ -13,6 +12,6 @@
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
-    "outDir": "./build"
+    "declaration": true,
   }
 }

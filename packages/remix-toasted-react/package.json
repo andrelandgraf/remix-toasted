@@ -18,16 +18,20 @@
     "remix",
     "cookies"
   ],
+  "type": "module",
+  "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist",
     "format:lint": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "test": "vitest",
-    "build": "npm run clean && tsc",
+    "build": "npm run clean && rollup -c",
     "pre:release": "npm run build",
     "release": "npm publish --access public"
   },
   "peerDependencies": {
-    "@remix-run/react": "^2.2.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@remix-run/react": "^2"
   },
   "devDependencies": {
     "@remix-run/eslint-config": "^2.0.1",
@@ -48,6 +52,9 @@
     "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rollup": "^4.5.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.2.2",
     "vite": "^4.4.11",
     "vitest": "^0.34.6"

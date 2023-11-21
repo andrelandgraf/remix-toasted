@@ -19,7 +19,7 @@
 }
 
 .remix-toasted-toast button {
-  background-color: transparent;
+  background-color: inherit;
   border: none;
 }
 

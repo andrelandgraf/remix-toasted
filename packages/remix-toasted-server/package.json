@@ -18,6 +18,7 @@
     "remix",
     "cookies"
   ],
+  "type": "module",
   "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist",
