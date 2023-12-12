@@ -45,7 +45,7 @@ describe('Toast', () => {
     expect(toast).toBeNull();
   });
 
-  test.only('it can be dismissed when dismissible is true', async () => {
+  test('it can be dismissed when dismissible is true', async () => {
     const RemixStub = createRemixStub([
       {
         path: '/',
@@ -56,16 +56,17 @@ describe('Toast', () => {
       },
     ]);
 
+    const user = userEvent.setup();
     render(<RemixStub initialEntries={['/']} />);
     await screen.findByText('X');
 
-    fireEvent.submit(screen.getByTestId('dismissForm'));
+    await user.click(screen.getByTestId('dismissButton'));
 
     await waitFor(() => {
-      const button =  screen.getByTestId('dismissButton');
+      const toastContainerElement =  screen.getByTestId('toast');
       // check if has css class remix-toasted-dismissed
-      expect(button.classList.contains('remix-toasted-dismissed')).toBe(true);
-    }, { timeout: 100000000 });
+      expect(toastContainerElement.classList.contains('remix-toasted-dismissed')).toBe(true);
+    });
   });
 
   test('it can not be dismissed when dismissible is false', async () => {
