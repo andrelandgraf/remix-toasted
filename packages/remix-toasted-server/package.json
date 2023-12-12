@@ -1,6 +1,6 @@
 {
   "name": "remix-toasted-server",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "description": "The server-side code for your Remix app to create really cool toasts!",
   "author": "All Things Web, Andre (@andrelandgraf), Sing (@eiffelwong1), Tony (@tonydangblog), Terry, Cesar, Jonathan (@camilingjs), Lizzy, Jacob (@jacobbaqleh1)",
