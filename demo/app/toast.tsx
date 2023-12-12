@@ -22,7 +22,7 @@ type ToastLoaderData = {
 };
 
 export function Toast({
-  dismissible,
+  dismissible = true,
   className,
   dismissElement = 'X',
   dismissAriaLabel = 'dismiss',

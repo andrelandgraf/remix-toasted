@@ -4,6 +4,12 @@ import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { createToastFactory } from './index';
 
+// mocking -> Something outside of the scope of your test that you want to control, and let it return what we want
+//            to fit our current test scenario.
+// stubbing -> We replace the code with a test helper that returns what we want to fit our current test scenario.
+// spying -> We actual run the code but we wrap it with test helpers that observe what the code is doing (ins and outs, and how often called)
+// you test a specific scenario
+
 vi.mock('@remix-run/server-runtime', async (importOriginal) => {
   // eslint-disable-next-line @typescript-eslint/consistent-type-imports
   const mod = await importOriginal<typeof import('@remix-run/server-runtime')>();

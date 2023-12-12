@@ -1,0 +1,40 @@
+.remix-toasted-toast {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 8px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 4px;
+  transition: ease-in-out 0.3s;
+}
+
+.remix-toasted-dismissed {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.remix-toasted-toast button {
+  background-color: inherit;
+  border: none;
+}
+
+.remix-toasted-success {
+  background-color: lightgreen;
+}
+
+.remix-toasted-error {
+  background-color: lightsalmon;
+}
+
+.remix-toasted-info {
+  background-color: white;
+}
+
+.remix-toasted-warning {
+  background-color: wheat;
+}

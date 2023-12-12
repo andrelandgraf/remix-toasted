@@ -22,7 +22,7 @@ type ToastLoaderData = {
 };
 
 export function Toast({
-  dismissible,
+  dismissible = true,
   className,
   dismissElement = 'X',
   dismissAriaLabel = 'dismiss',
@@ -56,13 +56,14 @@ export function Toast({
   const dismissNode = dismissible && (
     <>
       <form
+        data-testid="dismissForm"
         method="GET"
         onSubmit={(e) => {
           e.preventDefault();
           setDismissed(true);
         }}
       >
-        <button type="submit" aria-label={dismissAriaLabel}>
+        <button data-testid="dismissButton" type="submit" aria-label={dismissAriaLabel}>
           {dismissElement}
         </button>
       </form>
@@ -71,6 +72,7 @@ export function Toast({
 
   return (
     <div
+      data-testid="toast"
       {...props}
       className={`remix-toasted-toast remix-toasted-${data.toast.type} ${dismissed && 'remix-toasted-dismissed'} ${
         typeof className === 'function' ? className({ type: data.toast.type }) : className
